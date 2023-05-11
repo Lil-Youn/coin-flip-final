@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import "./App.css";
-import coinIcon from "./assets/coin-icon.png";
+import coinIcon from "./assets/gold-coin-dollar-icon.png";
 import GenericModal from "./components/generic-modal";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
