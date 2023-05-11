@@ -1,7 +1,6 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import "./App.css";
-import tailIcon from "./assets/tail-coin.png";
-import headIcon from "./assets/head-coin.png";
+
 import coinIcon from "./assets/coin.png";
 import GenericModal from "./components/generic-modal";
 import { useState } from "react";
@@ -89,7 +88,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             <div style={{ textAlign: "center" }}>
               <img
                 onClick={handleHeadClick}
-                src={headIcon}
+                src={coinIcon}
                 className="logo "
                 alt="logo"
               />
@@ -98,7 +97,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             <div style={{ textAlign: "center" }}>
               <img
                 onClick={handleTailClick}
-                src={tailIcon}
+                src={coinIcon}
                 className="logo "
                 alt="logo"
               />
