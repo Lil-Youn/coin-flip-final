@@ -178,8 +178,6 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
                 zIndex: 9999,
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                backdropFilter: "blur(5px)",
               }}
             >
               <img
@@ -208,7 +206,14 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             </Typography>
           )}
         </div>
-        <div style={{ marginTop: "50px", textAlign: "center" }}>
+        <div
+          style={{
+            border: "1px solid white",
+            borderRadius: "5px",
+            marginTop: "50px",
+            textAlign: "center",
+          }}
+        >
           <Typography variant="h5">Wins: {wins}</Typography>
           <Typography variant="h5">Losses: {losses}</Typography>
         </div>
