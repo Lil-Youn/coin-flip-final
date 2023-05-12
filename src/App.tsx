@@ -214,8 +214,8 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             textAlign: "center",
           }}
         >
-          <Typography variant="h5">Wins: {wins}</Typography>
-          <Typography variant="h5">Losses: {losses}</Typography>
+          <Typography variant="h6">Wins: {wins}</Typography>
+          <Typography variant="h6">Losses: {losses}</Typography>
         </div>
       </div>
     </GenericModal>
