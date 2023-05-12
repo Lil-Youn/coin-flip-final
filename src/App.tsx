@@ -1,9 +1,9 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import "./App.css";
-
+import coinGif from "./assets/coinFlip.gif";
 import coinIcon from "./assets/coin.png";
 import GenericModal from "./components/generic-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 
 function App() {
@@ -43,6 +43,15 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
   const [head, setHead] = useState(false);
   const [tail, setTail] = useState(false);
   const [result, setResult] = useState<"head" | "tail" | "">("");
+  const [showGIF, setShowGIF] = useState(false);
+
+  useEffect(() => {
+    const timeoutID = setTimeout(() => {
+      setShowGIF(false);
+    }, 2000);
+    return () => clearTimeout(timeoutID);
+  }, [showGIF]);
+
   const handleHeadClick = () => {
     setHead(true);
     setTail(false);
@@ -60,16 +69,22 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
       return;
     }
 
-    const randomResult = Math.random() < 0.5 ? "head" : "tail";
-    setResult(randomResult);
-    console.log(randomResult);
+    setResult("");
+    setShowGIF(true);
 
-    // Wait for 5 seconds and then reset the game
+    // Wait for 2 seconds and then show the game result
     setTimeout(() => {
-      setHead(false);
-      setTail(false);
-      setResult("");
-    }, 5000);
+      const randomResult = Math.random() < 0.5 ? "head" : "tail";
+      setResult(randomResult);
+      console.log(randomResult);
+
+      // Wait for 5 seconds and then reset the game
+      setTimeout(() => {
+        setHead(false);
+        setTail(false);
+        setResult("");
+      }, 3000);
+    }, 2000);
   };
 
   return (
@@ -118,6 +133,27 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
           >
             Play
           </Button>
+        </div>
+        <div>
+          {showGIF && (
+            <div
+              style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 9999,
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                backdropFilter: "blur(5px)",
+              }}
+            >
+              <img
+                src={coinGif}
+                alt="coin flip"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+          )}
         </div>
 
         <div>
