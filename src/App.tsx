@@ -44,6 +44,8 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
   const [tail, setTail] = useState(false);
   const [result, setResult] = useState<"head" | "tail" | "">("");
   const [showGIF, setShowGIF] = useState(false);
+  const [wins, setWins] = useState(0);
+  const [losses, setLosses] = useState(0);
 
   useEffect(() => {
     const timeoutID = setTimeout(() => {
@@ -78,6 +80,16 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
       setResult(randomResult);
       console.log(randomResult);
 
+      // Update win/loss counter
+      if (
+        (randomResult === "head" && head) ||
+        (randomResult === "tail" && tail)
+      ) {
+        setWins(wins + 1);
+      } else {
+        setLosses(losses + 1);
+      }
+
       // Wait for 5 seconds and then reset the game
       setTimeout(() => {
         setHead(false);
@@ -86,6 +98,29 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
       }, 3000);
     }, 2000);
   };
+
+  useEffect(() => {
+    // Save win/loss counter to local storage
+    localStorage.setItem("wins", JSON.stringify(wins));
+    localStorage.setItem("losses", JSON.stringify(losses));
+  }, [wins, losses]);
+
+  useEffect(() => {
+    // Retrieve win/loss counter from local storage
+
+    const savedWins = localStorage.getItem("wins");
+    const loadedWins = savedWins ? JSON.parse(savedWins) : 0;
+    const savedLosses = localStorage.getItem("losses");
+    const loadedLosses = savedLosses ? JSON.parse(savedLosses) : 0;
+
+    if (savedWins) {
+      setWins(loadedWins);
+    }
+
+    if (savedLosses) {
+      setLosses(loadedLosses);
+    }
+  }, []);
 
   return (
     <GenericModal header="Choose head or tail" open={open} close={close}>
@@ -172,6 +207,10 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
                 : ", you lose!"}
             </Typography>
           )}
+        </div>
+        <div style={{ marginTop: "50px", textAlign: "center" }}>
+          <Typography variant="h5">Wins: {wins}</Typography>
+          <Typography variant="h5">Losses: {losses}</Typography>
         </div>
       </div>
     </GenericModal>
