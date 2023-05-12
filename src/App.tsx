@@ -2,6 +2,7 @@ import { Box, Button, IconButton, Typography } from "@mui/material";
 import "./App.css";
 import coinGif from "./assets/coinFlip.gif";
 import coinIcon from "./assets/coin.png";
+import coinWin from "./assets/coinWin.gif";
 import GenericModal from "./components/generic-modal";
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
