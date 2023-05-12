@@ -45,6 +45,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
   const [tail, setTail] = useState(false);
   const [result, setResult] = useState<"head" | "tail" | "">("");
   const [showGIF, setShowGIF] = useState(false);
+  const [showWinGIF, setShowWinGIF] = useState(false);
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
 
@@ -87,6 +88,10 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
         (randomResult === "tail" && tail)
       ) {
         setWins(wins + 1);
+        setShowWinGIF(true);
+        setTimeout(() => {
+          setShowWinGIF(false);
+        }, 2000);
       } else {
         setLosses(losses + 1);
       }
@@ -96,6 +101,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
         setHead(false);
         setTail(false);
         setResult("");
+        setShowWinGIF(false);
       }, 3000);
     }, 2000);
   };
@@ -184,6 +190,25 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
               <img
                 src={coinGif}
                 alt="coin flip"
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+          )}
+        </div>
+        <div>
+          {showWinGIF && (
+            <div
+              style={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 9999,
+              }}
+            >
+              <img
+                src={coinWin}
+                alt="coin win"
                 style={{ width: "100%", height: "100%" }}
               />
             </div>
