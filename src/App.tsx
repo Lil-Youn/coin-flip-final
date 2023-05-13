@@ -1,13 +1,15 @@
+import CasinoIcon from "@mui/icons-material/Casino";
+import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import "./App.css";
-import coinGif from "./assets/coinFlip.gif";
 import coinIcon from "./assets/coin.png";
+import coinGif from "./assets/coinFlip.gif";
+import coinWin from "./assets/coinWin.gif";
 import coinsIcon from "./assets/coins-icon.png";
 import dollarCoinsIcon from "./assets/dollar-coins-icon.png";
-import coinWin from "./assets/coinWin.gif";
 import GenericModal from "./components/generic-modal";
-import { useEffect, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 
 function App() {
   const [modalOpenCoin, setModalOpenCoin] = useState(false);
@@ -25,8 +27,13 @@ function App() {
           </a>
         </div>
         <Typography variant="h1">Coin flip</Typography>
+
         <div className="card">
-          <Button onClick={() => setModalOpenCoin(true)} variant="contained">
+          <Button
+            startIcon={<MonetizationOnIcon />}
+            onClick={() => setModalOpenCoin(true)}
+            variant="contained"
+          >
             Start game
           </Button>
         </div>
@@ -172,6 +179,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
         <div style={{ textAlign: "center" }}>
           <Button
             sx={{ margin: "15px" }}
+            startIcon={<CasinoIcon />}
             variant="contained"
             onClick={handlePlayClick}
           >
