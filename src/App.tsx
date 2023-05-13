@@ -2,6 +2,8 @@ import { Box, Button, IconButton, Typography } from "@mui/material";
 import "./App.css";
 import coinGif from "./assets/coinFlip.gif";
 import coinIcon from "./assets/coin.png";
+import coinsIcon from "./assets/coins-icon.png";
+import dollarCoinsIcon from "./assets/dollar-coins-icon.png";
 import coinWin from "./assets/coinWin.gif";
 import GenericModal from "./components/generic-modal";
 import { useEffect, useState } from "react";
@@ -145,7 +147,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             <div style={{ textAlign: "center" }}>
               <img
                 onClick={handleHeadClick}
-                src={coinIcon}
+                src={dollarCoinsIcon}
                 className="logo "
                 alt="logo"
               />
@@ -154,7 +156,7 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             <div style={{ textAlign: "center" }}>
               <img
                 onClick={handleTailClick}
-                src={coinIcon}
+                src={coinsIcon}
                 className="logo "
                 alt="logo"
               />
