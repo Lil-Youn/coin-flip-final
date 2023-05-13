@@ -36,7 +36,7 @@ const GenericModal = ({ header, open, close, children }: GenericModalProps) => {
           p={5}
           borderRadius={10}
         >
-          <Typography variant="h5" textAlign="center">
+          <Typography variant="button" display="block" textAlign="center">
             {header}
           </Typography>
           <Box

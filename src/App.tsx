@@ -26,7 +26,9 @@ function App() {
             />
           </a>
         </div>
-        <Typography variant="h1">Coin flip</Typography>
+        <Typography variant="button" display="block">
+          Coin flip
+        </Typography>
 
         <div className="card">
           <Button
@@ -158,7 +160,9 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
                 className="logo "
                 alt="logo"
               />
-              <Typography>Head</Typography>
+              <Typography variant="button" display="block">
+                Head
+              </Typography>
             </div>
             <div style={{ textAlign: "center" }}>
               <img
@@ -167,12 +171,14 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
                 className="logo "
                 alt="logo"
               />
-              <Typography>Tail</Typography>
+              <Typography variant="button" display="block">
+                Tail
+              </Typography>
             </div>
           </div>
         </Box>
         <div style={{ textAlign: "center" }}>
-          <Typography>
+          <Typography variant="button" display="block">
             You chose {head ? "Head" : tail ? "Tail" : ""}
           </Typography>
         </div>
@@ -228,7 +234,8 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
         <div>
           {result && (
             <Typography
-              variant="h5"
+              variant="button"
+              display="block"
               style={{ marginTop: "50px", textAlign: "center" }}
             >
               {result === "head"
@@ -250,8 +257,12 @@ function CoinFlipGame({ open, close }: { open: boolean; close: () => void }) {
             textAlign: "center",
           }}
         >
-          <Typography variant="h6">Wins: {wins}</Typography>
-          <Typography variant="h6">Losses: {losses}</Typography>
+          <Typography variant="button" display="block">
+            Wins: {wins}
+          </Typography>
+          <Typography variant="button" display="block">
+            Losses: {losses}
+          </Typography>
         </div>
       </div>
     </GenericModal>
