@@ -3,7 +3,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./App.css";
-import diceRoll from "./assets/dice/dice-roll.gif";
 import diceLogo from "./assets/dice/dice-logo.png";
 import dice1Icon from "./assets/dice/dice1.png";
 import dice2Icon from "./assets/dice/dice2.png";
@@ -12,10 +11,10 @@ import dice4Icon from "./assets/dice/dice4.png";
 import dice5Icon from "./assets/dice/dice5.png";
 import dice6Icon from "./assets/dice/dice6.png";
 
-import GenericModal from "./components/generic-modal";
+import HomeIcon from "@mui/icons-material/Home";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { useNavigate } from "react-router";
-import HomeIcon from "@mui/icons-material/Home";
+import GenericModal from "./components/generic-modal";
 
 function Dice() {
   const [modalOpenDice, setModalOpenDice] = useState(false);
