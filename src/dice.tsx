@@ -10,9 +10,16 @@ import coinsIcon from "./assets/coins-icon.png";
 import dollarCoinsIcon from "./assets/dollar-coins-icon.png";
 import GenericModal from "./components/generic-modal";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import { useNavigate } from "react-router";
+import HomeIcon from "@mui/icons-material/Home";
 
 function Dice() {
   const [modalOpenDice, setModalOpenDice] = useState(false);
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
   return (
     <>
       <Box>
@@ -40,6 +47,15 @@ function Dice() {
           </Button>
         </div>
         <Typography variant="h5">Click on the Dice to start</Typography>
+        <div>
+          <Button
+            startIcon={<HomeIcon />}
+            onClick={handleHomeClick}
+            variant="contained"
+          >
+            Home
+          </Button>
+        </div>
       </Box>
       <DiceGame
         open={modalOpenDice}

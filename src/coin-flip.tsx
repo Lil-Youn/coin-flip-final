@@ -10,9 +10,16 @@ import coinsIcon from "./assets/coins-icon.png";
 import dollarCoinsIcon from "./assets/dollar-coins-icon.png";
 import GenericModal from "./components/generic-modal";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router";
 
 function Coinflip() {
   const [modalOpenCoin, setModalOpenCoin] = useState(false);
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
   return (
     <>
       <Box>
@@ -39,7 +46,17 @@ function Coinflip() {
             Start game
           </Button>
         </div>
+
         <Typography variant="h5">Click on the Coin to start</Typography>
+        <div>
+          <Button
+            startIcon={<HomeIcon />}
+            onClick={handleHomeClick}
+            variant="contained"
+          >
+            Home
+          </Button>
+        </div>
       </Box>
       <CoinFlipGame
         open={modalOpenCoin}
