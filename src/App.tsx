@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import coinIcon from "./assets/coin.png";
-import diceIcon from "./assets/dice-logo.png";
+import coinIcon from "./assets/coinflip/coin.png";
+import diceIcon from "./assets/dice/dice-logo.png";
 import { Typography } from "@mui/material";
 
 function App() {
