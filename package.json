@@ -16,7 +16,8 @@
     "@mui/material": "^5.12.3",
     "@types/file-loader": "^5.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.1"
   },
   "devDependencies": {
     "@types/node": "^20.1.2",
