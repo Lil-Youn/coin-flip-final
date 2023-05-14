@@ -3,11 +3,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import "./App.css";
-import diceLogo from "./assets/dice-logo.png";
-import coinGif from "./assets/coinFlip.gif";
-import coinWin from "./assets/coinWin.gif";
-import coinsIcon from "./assets/coins-icon.png";
-import dollarCoinsIcon from "./assets/dollar-coins-icon.png";
+import diceRoll from "./assets/dice/dice-roll.gif";
+import diceLogo from "./assets/dice/dice-logo.png";
+import dice1Icon from "./assets/dice/dice1.png";
+import dice2Icon from "./assets/dice/dice2.png";
+import dice3Icon from "./assets/dice/dice3.png";
+import dice4Icon from "./assets/dice/dice4.png";
+import dice5Icon from "./assets/dice/dice5.png";
+import dice6Icon from "./assets/dice/dice6.png";
+
 import GenericModal from "./components/generic-modal";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import { useNavigate } from "react-router";
@@ -68,13 +72,20 @@ function Dice() {
 }
 
 function DiceGame({ open, close }: { open: boolean; close: () => void }) {
-  const [head, setHead] = useState(false);
-  const [tail, setTail] = useState(false);
-  const [result, setResult] = useState<"head" | "tail" | "">("");
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [diceRoll, setDiceRoll] = useState<number | null>(null);
   const [showGIF, setShowGIF] = useState(false);
-  const [showWinGIF, setShowWinGIF] = useState(false);
   const [wins, setWins] = useState(0);
   const [losses, setLosses] = useState(0);
+
+  const diceIcons = [
+    dice1Icon,
+    dice2Icon,
+    dice3Icon,
+    dice4Icon,
+    dice5Icon,
+    dice6Icon,
+  ];
 
   useEffect(() => {
     const timeoutID = setTimeout(() => {
@@ -83,53 +94,32 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
     return () => clearTimeout(timeoutID);
   }, [showGIF]);
 
-  const handleHeadClick = () => {
-    setHead(true);
-    setTail(false);
-  };
-
-  const handleTailClick = () => {
-    setHead(false);
-    setTail(true);
+  const handleNumberClick = (number: number) => {
+    setSelectedNumber(number);
   };
 
   const handlePlayClick = () => {
-    if (!head && !tail) {
-      setResult("");
-      alert("Please choose head or tail");
+    if (!selectedNumber) {
+      alert("Please choose a number to roll.");
       return;
     }
 
-    setResult("");
     setShowGIF(true);
+    setDiceRoll(null);
 
-    // Wait for 2 seconds and then show the game result
+    // Wait for 2 seconds and then roll the dice
     setTimeout(() => {
-      const randomResult = Math.random() < 0.5 ? "head" : "tail";
-      setResult(randomResult);
-      console.log(randomResult);
+      const diceRollValue = Math.floor(Math.random() * 6) + 2;
+      setDiceRoll(diceRollValue);
 
       // Update win/loss counter
-      if (
-        (randomResult === "head" && head) ||
-        (randomResult === "tail" && tail)
-      ) {
+      if (diceRollValue === selectedNumber) {
         setWins(wins + 1);
-        setShowWinGIF(true);
-        setTimeout(() => {
-          setShowWinGIF(false);
-        }, 2000);
       } else {
         setLosses(losses + 1);
       }
 
-      // Wait for 5 seconds and then reset the game
-      setTimeout(() => {
-        setHead(false);
-        setTail(false);
-        setResult("");
-        setShowWinGIF(false);
-      }, 3000);
+      setShowGIF(false);
     }, 2000);
   };
 
@@ -141,7 +131,6 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
 
   useEffect(() => {
     // Retrieve win/loss counter from local storage
-
     const savedWins = localStorage.getItem("wins");
     const loadedWins = savedWins ? JSON.parse(savedWins) : 0;
     const savedLosses = localStorage.getItem("losses");
@@ -157,7 +146,7 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
   }, []);
 
   return (
-    <GenericModal header="Choose head or tail" open={open} close={close}>
+    <GenericModal header="Roll the dice" open={open} close={close}>
       <div>
         <IconButton
           style={{ position: "absolute", top: -3, right: 150, color: "white" }}
@@ -169,119 +158,77 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
         </IconButton>
         <Box>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <div style={{ textAlign: "center" }}>
-              <img
-                onClick={handleHeadClick}
-                src={dollarCoinsIcon}
-                className="logo "
-                alt="logo"
-              />
-              <Typography variant="button" display="block">
-                Head
-              </Typography>
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <img
-                onClick={handleTailClick}
-                src={coinsIcon}
-                className="logo "
-                alt="logo"
-              />
-              <Typography variant="button" display="block">
-                Tail
-              </Typography>
-            </div>
+            <img
+              src={showGIF ? diceIcons[Math.floor(Math.random() * 6)] : ""}
+              className={`dice-image ${showGIF ? "rolling" : ""}`}
+              alt="dice"
+            />
           </div>
-        </Box>
-        <div style={{ textAlign: "center" }}>
-          <Typography variant="button" display="block">
-            You chose {head ? "Head" : tail ? "Tail" : ""}
-          </Typography>
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <Button
-            sx={{ margin: "15px" }}
-            startIcon={<CasinoIcon />}
-            variant="contained"
-            onClick={handlePlayClick}
-          >
-            Play
+          <div>
+            {diceRoll && (
+              <div style={{ textAlign: "center" }}>
+                <Typography variant="h6">You rolled a {diceRoll}</Typography>
+                <Typography variant="h6">
+                  {diceRoll === selectedNumber ? "You won!" : "You lost!"}
+                </Typography>
+              </div>
+            )}
+            {!diceRoll && (
+              <div style={{ textAlign: "center" }}>
+                <Typography variant="h6">Choose a number to roll</Typography>
+                <div className="dice-buttons">
+                  {[1, 2, 3, 4, 5, 6].map((number) => (
+                    <Button
+                      key={number}
+                      variant="contained"
+                      color={selectedNumber === number ? "primary" : "success"}
+                      onClick={() => handleNumberClick(number)}
+                    >
+                      {number}
+                    </Button>
+                  ))}
+                </div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handlePlayClick}
+                >
+                  Roll the Dice
+                </Button>
+              </div>
+            )}
+          </div>
+          <Button onClick={handlePlayClick} variant="contained" color="primary">
+            {diceRoll ? "Roll again" : "Roll the dice"}
           </Button>
-        </div>
-        <div>
-          {showGIF && (
-            <div
-              style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 9999,
-              }}
-            >
-              <img
-                src={coinGif}
-                alt="coin flip"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-          )}
-        </div>
-        <div>
-          {showWinGIF && (
-            <div
-              style={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                zIndex: 9999,
-              }}
-            >
-              <img
-                src={coinWin}
-                alt="coin win"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-          )}
-        </div>
+          <Typography variant="h6" style={{ marginTop: 24 }}>
+            Select a number to bet on:
+          </Typography>
 
-        <div>
-          {result && (
-            <Typography
-              variant="button"
-              display="block"
-              style={{ marginTop: "50px", textAlign: "center" }}
-            >
-              {result === "head"
-                ? "The coin landed on Head"
-                : "The coin landed on Tail"}
-              {head && result === "head"
-                ? ", you win!"
-                : tail && result === "tail"
-                ? ", you win!"
-                : ", you lose!"}
-            </Typography>
-          )}
-        </div>
-        <div
-          style={{
-            border: "1px solid white",
-            borderRadius: "5px",
-            marginTop: "50px",
-            textAlign: "center",
-          }}
-        >
-          <Typography variant="button" display="block">
-            Wins: {wins}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            {[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((number) => (
+              <IconButton
+                key={number}
+                onClick={() => handleNumberClick(number)}
+                style={{
+                  backgroundColor: selectedNumber === number ? "#f50057" : "",
+                }}
+              >
+                <CasinoIcon fontSize="large" />
+                <Typography variant="h6">{number}</Typography>
+              </IconButton>
+            ))}
+          </div>
+          <Typography variant="h6" style={{ marginTop: 24 }}>
+            Statistics:
           </Typography>
-          <Typography variant="button" display="block">
-            Losses: {losses}
-          </Typography>
-        </div>
+
+          <Typography variant="body1">Wins: {wins}</Typography>
+          <Typography variant="body1">Losses: {losses}</Typography>
+        </Box>
       </div>
     </GenericModal>
   );
 }
+
 export default Dice;
