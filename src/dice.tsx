@@ -50,7 +50,9 @@ function Dice() {
             Start game
           </Button>
         </div>
-        <Typography variant="h5">Click on the Dice to start</Typography>
+        <Typography variant="button" display="block">
+          Click on the Dice to start
+        </Typography>
         <div>
           <Button
             startIcon={<HomeIcon />}
@@ -164,12 +166,14 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
         </IconButton>
         <Box>
           <div style={{ textAlign: "center" }}>
-            <Typography variant="h6">Choose a number to roll</Typography>
-            <div className="dice-buttons">
+            <Typography variant="button" display="block">
+              Choose a number to roll
+            </Typography>
+            <div style={{ margin: "10px" }} className="dice-buttons">
               {[1, 2, 3, 4, 5, 6].map((number) => (
                 <img
-                  height={25}
-                  width={25}
+                  height={35}
+                  width={35}
                   key={number}
                   src={diceIcons[number - 1]}
                   className={`dice-image ${
@@ -183,18 +187,21 @@ function DiceGame({ open, close }: { open: boolean; close: () => void }) {
             <div>
               {diceRoll && (
                 <div style={{ textAlign: "center" }}>
-                  <Typography variant="h6">You rolled a {diceRoll}</Typography>
-                  <Typography variant="h6">
+                  <Typography variant="button" display="block">
+                    You rolled a {diceRoll}
+                  </Typography>
+                  <Typography variant="button" display="block">
                     {diceRoll === selectedNumber ? "You won!" : "You lost!"}
                   </Typography>
                 </div>
               )}
               {!diceRoll && selectedNumber && (
                 <div style={{ textAlign: "center" }}>
-                  <Typography variant="h6">
-                    You chose number {selectedNumber}
+                  <Typography variant="button" display="block">
+                    You choosed number {selectedNumber}
                   </Typography>
                   <Button
+                    sx={{ margin: "10px" }}
                     startIcon={<CasinoIcon />}
                     onClick={handlePlayClick}
                     variant="contained"
