@@ -36,8 +36,9 @@ Start the server
 
 
 ## Screenshots
+<img width="824" alt="Bildschirmfoto 2023-07-06 um 18 13 53" src="https://github.com/Lil-Youn/coin-flip-final/assets/110492763/2fda3eb7-765d-4f7e-8a87-7dad4c0ec91b">
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
 
 
 ## 🚀 About Me
